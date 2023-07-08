@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "name": "workflowapi",
+    "builds": [
+      { "src": "index.js", "use": "@vercel/other" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/index.php" }
+    ]
+}
