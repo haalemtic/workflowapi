@@ -6,6 +6,7 @@ require_once('models/forAdmin/company.php');
 require_once('models/forAdmin/administrator.php');
 require_once('models/forAdmin/department.php');
 require_once('models/forAdmin/grade.php');
+require_once('models/forUsers/user.php');
 require_once("controllers/forAdmin/admin_login.php");
 require_once("controllers/forAdmin/get_all_companies.php");
 require_once("controllers/forAdmin/create_company.php");
@@ -16,7 +17,8 @@ require_once("controllers/forAdmin/create_grade.php");
 require_once("controllers/forAdmin/delete_grade.php");
 require_once("controllers/forAdmin/create_department.php");
 require_once("controllers/forAdmin/delete_department.php");
- 
+require_once("controllers/forUsers/signup.php");
+
 
 
 
@@ -65,6 +67,11 @@ try {
                 deleteDepartment();
                 break;
 
+            case "signUp":
+
+                signUp();
+                break;
+
 
 
             default:
@@ -75,6 +82,6 @@ try {
         include_once("views/home.php");
     }
 } catch (Exception $e) {
-     echo $e->getMessage();
+    echo $e->getMessage();
 }
 ?>
