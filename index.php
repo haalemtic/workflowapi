@@ -23,6 +23,7 @@ require_once("controllers/forUsers/signup.php");
 require_once("controllers/forUsers/login.php");
 require_once("controllers/forUsers/get_requisitions.php");
 require_once("controllers/forUsers/validate_requisition.php");
+require_once("controllers/forUsers/get_all_users.php");
 
 
 
@@ -94,7 +95,10 @@ try {
                 getCompanyByName();
                 break;
 
+            case "companyAllUsers":
 
+                companyAllUsers();
+                break;
 
 
             default:

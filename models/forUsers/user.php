@@ -23,9 +23,6 @@ class User
     public function signup()
     {
 
-
-
-
         // Vérifier si la table existe déjà
 
         $checkTableQuery = "SELECT 1 FROM information_schema.tables WHERE table_name = ?";
@@ -78,37 +75,61 @@ class User
 
     }
 
-
-
     public function login()
     {
 
         $response = 3;
-            // Vérifier si l'utilisateur existe
+        // Vérifier si l'utilisateur existe
 
-            $selectQuery = "SELECT * FROM $this->table WHERE EMAILADD = :email";
-            $stmt = $this->connexion->prepare($selectQuery);
-            $stmt->bindParam(':email', $this->emailAdd);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $selectQuery = "SELECT * FROM $this->table WHERE EMAILADD = :email";
+        $stmt = $this->connexion->prepare($selectQuery);
+        $stmt->bindParam(':email', $this->emailAdd);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if (!$user) {
-                // L'utilisateur n'existe pas
+        if (!$user) {
+            // L'utilisateur n'existe pas
 
-                $response=0;
+            $response = 0;
+        } else {
+            // Vérifier le mot de passe
+            if ($this->password === $user['PASSWORD']) {
+                // Les informations d'identification sont correctes
+                $response = 1;
             } else {
-                // Vérifier le mot de passe
-                if ($this->password === $user['PASSWORD']) {
-                    // Les informations d'identification sont correctes
-                    $response=1;
-                } else {
-                    // Le mot de passe est incorrect
-                    $response=2;
-                }
+                // Le mot de passe est incorrect
+                $response = 2;
             }
+        }
+
+
+        return $response;
+    }
+
+
+    public function getAllUsers()
+    {
+        try {
+            // Requête pour récupérer les utilisateurs de la compagnie
+            $selectQuery = "SELECT * FROM $this->table";
+            $stmt = $this->connexion->prepare($selectQuery);
+
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             
-        return $response;
+
+            // Retourner les résultats au format JSON
+            return $users;
+        } catch (PDOException $e) {
+            // Retourner un message d'erreur en cas d'échec de la requête
+            return sendJSON(
+                array(
+                    "status" => "error",
+                    "message" => "Erreur lors de la récupération des utilisateurs de la compagnie : " . $e->getMessage()
+                )
+            );
+        }
     }
 }
 
