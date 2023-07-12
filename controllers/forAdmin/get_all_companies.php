@@ -1,12 +1,5 @@
 <?php
 
-
-
-
-
-
-
-
 function allCompanies()
 {
     header("Access-Control-Allow-Methods: GET");

@@ -7,6 +7,7 @@ require_once('models/forAdmin/administrator.php');
 require_once('models/forAdmin/department.php');
 require_once('models/forAdmin/grade.php');
 require_once('models/forUsers/user.php');
+require_once('models/forUsers/requisition.php');
 require_once("controllers/forAdmin/admin_login.php");
 require_once("controllers/forAdmin/get_all_companies.php");
 require_once("controllers/forAdmin/create_company.php");
@@ -19,6 +20,7 @@ require_once("controllers/forAdmin/create_department.php");
 require_once("controllers/forAdmin/delete_department.php");
 require_once("controllers/forUsers/signup.php");
 require_once("controllers/forUsers/login.php");
+require_once("controllers/forUsers/get_requisitions.php");
 
 
 
@@ -76,7 +78,10 @@ try {
 
                 login();
                 break;
+            case "requisitions":
 
+                getRequisitions();
+                break;
 
 
 
