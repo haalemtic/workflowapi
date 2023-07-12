@@ -18,6 +18,7 @@ require_once("controllers/forAdmin/delete_grade.php");
 require_once("controllers/forAdmin/create_department.php");
 require_once("controllers/forAdmin/delete_department.php");
 require_once("controllers/forUsers/signup.php");
+require_once("controllers/forUsers/login.php");
 
 
 
@@ -71,6 +72,11 @@ try {
 
                 signUp();
                 break;
+            case "login":
+
+                login();
+                break;
+
 
 
 

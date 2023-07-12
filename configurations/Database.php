@@ -52,7 +52,7 @@ class Database
             $password = $company['password'];
             
                 if($servername != "vbs-solutions.com"){
-                    $pdo= new PDO("sqlsvr:Server=$servername;Database=$database", $username, $password);
+                    $pdo= new PDO("sqlsrv:Server=$servername;Database=$database", "", "");
                 }else{
                     $pdo= new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                 }
