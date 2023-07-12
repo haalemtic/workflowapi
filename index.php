@@ -18,6 +18,7 @@ require_once("controllers/forAdmin/create_grade.php");
 require_once("controllers/forAdmin/delete_grade.php");
 require_once("controllers/forAdmin/create_department.php");
 require_once("controllers/forAdmin/delete_department.php");
+require_once("controllers/forAdmin/get_company_by_name.php");
 require_once("controllers/forUsers/signup.php");
 require_once("controllers/forUsers/login.php");
 require_once("controllers/forUsers/get_requisitions.php");
@@ -86,6 +87,11 @@ try {
             case "validateRequisition":
 
                 validateRequisition();
+                break;
+
+            case "companyData":
+
+                getCompanyByName();
                 break;
 
 

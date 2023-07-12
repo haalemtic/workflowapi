@@ -183,6 +183,63 @@ class Company
             return false;
         }
     }
+
+    public function getCompanyByName()
+    {
+        
+    
+        try {
+       
+    
+            // Requête pour récupérer les informations de la compagnie avec l'ID spécifié
+            $queryCompany = "SELECT * FROM $this->table WHERE companyName = :companyID";
+            $statementCompany = $this->connexion->prepare($queryCompany);
+            $statementCompany->bindParam(':companyID', $this->companyName);
+            $statementCompany->execute();
+            $company = $statementCompany->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$company) {
+                // La compagnie n'existe pas
+                $response['status'] = "error";
+                $response['message'] = "La compagnie avec l'ID spécifié n'existe pas.";
+            } else {
+                 // Requête pour récupérer les grades de la compagnie
+                $queryGrades = "SELECT * FROM Grade WHERE companyId = :companyID";
+                $statementGrades = $this->connexion->prepare($queryGrades);
+                $statementGrades->bindParam(':companyID', $company['id']);
+                $statementGrades->execute();
+                $grades = $statementGrades->fetchAll(PDO::FETCH_ASSOC);
+    
+                // Requête pour récupérer les départements de la compagnie
+                $queryDepartments = "SELECT * FROM Department WHERE companyId = :companyID";
+                $statementDepartments = $this->connexion->prepare($queryDepartments);
+                $statementDepartments->bindParam(':companyID', $company['id']);
+                $statementDepartments->execute();
+                $departments = $statementDepartments->fetchAll(PDO::FETCH_ASSOC);
+    
+                // Ajouter les grades et les départements à la compagnie
+                $company['grades'] = $grades;
+                $company['departments'] = $departments;
+    
+                $response['status'] = "success";
+                $response['message'] = "Informations de la compagnie récupérées avec succès.";
+                $response['data'] = $company;
+            }
+    
+            
+    
+            // Retourner les résultats au format JSON
+            return $response;
+        } catch (PDOException $e) {
+            // Retourner un message JSON en cas d'erreur lors de la connexion ou de l'exécution de la requête
+            $response['status'] = "error";
+            $response['message'] = "Erreur lors de la récupération des informations de la compagnie : " . $e->getMessage();
+    
+            // Retourner les résultats au format JSON
+            return $response;
+        }
+    }
+    
     private function getCompanyStatus($company)
     {
         $servername = $company['servername'];
