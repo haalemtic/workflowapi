@@ -21,6 +21,7 @@ require_once("controllers/forAdmin/delete_department.php");
 require_once("controllers/forUsers/signup.php");
 require_once("controllers/forUsers/login.php");
 require_once("controllers/forUsers/get_requisitions.php");
+require_once("controllers/forUsers/validate_requisition.php");
 
 
 
@@ -82,6 +83,11 @@ try {
 
                 getRequisitions();
                 break;
+            case "validateRequisition":
+
+                validateRequisition();
+                break;
+
 
 
 

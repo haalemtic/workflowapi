@@ -14,11 +14,11 @@ class Requisition
     private $connexion = null;
 
     private $RQNHSEQ;
-    private $RQNNUMBER;
+    public $RQNNUMBER;
     private $VDNAME;
     private $REQUESTBY;
     private $EXPARRIVAL;
-    private $ONHOLD;
+    public $ONHOLD;
     private $DESCRIPTIO;
     private $REFERENCE;
     private $RequisitionLine;
@@ -104,7 +104,7 @@ class Requisition
                 foreach ($requisitionsLines as $line) {
                     if ($line['RQNHSEQ'] === $rqnhseq) {
                         $header['RequisitionLine'][] = $line;
-                    } 
+                    }
                 }
 
                 $requisitions[] = $header;
@@ -139,5 +139,32 @@ class Requisition
 
         return $requisitions;
 
+    }
+
+
+
+    public function validateRequisition()
+    {
+            // Requête de mise à jour
+            $updateQuery = "UPDATE $this->headerTable SET ONHOLD = :onHoldStatus WHERE RQNNUMBER = :reqNumber";
+            $stmt = $this->connexion->prepare($updateQuery);
+            $stmt->bindParam(':onHoldStatus', $this->ONHOLD);
+            $stmt->bindParam(':reqNumber', $this->RQNNUMBER);
+            $stmt->execute();
+
+            $rowCount = $stmt->rowCount();
+            $response = 2;
+            // Vérifier si la mise à jour a été effectuée avec succès
+            if ($rowCount > 0) {
+                // Mise à jour réussie
+                $response = 1;
+            } else {
+                // Aucune requisition correspondante trouvée
+                $response = 0;
+            }
+
+           
+            return $response;
+        
     }
 }
