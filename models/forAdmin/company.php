@@ -126,7 +126,7 @@ class Company
 
         try {
             // Requête pour mettre à jour la compagnie
-            $query = "UPDATE $this->table SET companyName = :companyName, databaseName = :database, servername = :servername, username = :username, password = :password WHERE id = :companyId";
+            $query = "UPDATE $this->table SET databaseName = :database, servername = :servername, username = :username, password = :password WHERE id = :companyId";
 
             // Préparation de la requête
             $statement = $this->connexion->prepare($query);
@@ -135,7 +135,7 @@ class Company
             $statement->bindParam(':username', $this->username);
             $statement->bindParam(':password', $this->password);
             $statement->bindParam(':companyId', $this->id);
-            $statement->bindParam(':companyName', $this->companyName);
+           
 
             $exec = $statement->execute();
 
@@ -264,7 +264,7 @@ class Company
 
             return true;
         } catch (Exception $e) {
-            echo $e->getMessage();
+
             return false;
         }
 

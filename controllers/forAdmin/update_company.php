@@ -4,9 +4,8 @@ function updateCompany()
 {
 
     header("Access-Control-Allow-Methods: PUT");
-    header("Access-Control-Allow-Headers: Content-Type");
     header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json; charset= UTF-8");
+     
 
 
 
@@ -25,13 +24,13 @@ function updateCompany()
 
 
 
-        if (!empty($inputData->companyName) && !empty($inputData->username) && !empty($inputData->databaseName) && !empty($inputData->password) && !empty($inputData->servername) && !empty($inputData->id)) {
+        if (!empty($inputData->username) && !empty($inputData->databaseName) && !empty($inputData->password) && !empty($inputData->servername) && !empty($inputData->id)) {
 
 
 
             //Hydratation des données
 
-            $companyInstance->companyName = htmlspecialchars($inputData->companyName);
+            
             $companyInstance->username = htmlspecialchars($inputData->username);
             $companyInstance->databaseName = htmlspecialchars($inputData->databaseName);
             $companyInstance->password = htmlspecialchars($inputData->password);

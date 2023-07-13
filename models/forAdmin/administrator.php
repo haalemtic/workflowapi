@@ -1,7 +1,7 @@
 <?php
 class Administrator
 {
-    private $table = "Administrateurs";
+    private $table = "administrateurs";
     private $connexion = null;
     public $id;
     public $email;

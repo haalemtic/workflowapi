@@ -3,10 +3,11 @@
 function getRequisitions()
 {
     header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json; charset= UTF-8");
-    header("Access-Control-Allow-Headers: Content-Type");
-    header("Access-Control-Allow-Methods: GET");
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+   
+    header("Access-Control-Allow-Methods: POST");
+    
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //Reccupération des infos envoyées
         $inputData = json_decode(file_get_contents("php://input"));
         $databases = new Database();
@@ -25,20 +26,12 @@ function getRequisitions()
 
 
             $response = $requisitionInstance->getRequisitions();
-            if ($response != null) {
+             
 
                 sendJSON(
                     $response
                 );
-            } else {
-                sendJSON(
-                    array(
-
-                        "message" => "Aucune réquisition trouvée"
-
-                    )
-                );
-            }
+        
 
 
 

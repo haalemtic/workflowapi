@@ -86,19 +86,20 @@ class User
         $stmt->bindParam(':email', $this->emailAdd);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $response = array();
         if (!$user) {
             // L'utilisateur n'existe pas
 
-            $response = 0;
+         
         } else {
             // Vérifier le mot de passe
             if ($this->password === $user['PASSWORD']) {
                 // Les informations d'identification sont correctes
-                $response = 1;
+                $response['code'] = 1;
+                $response['user']=$user;
             } else {
                 // Le mot de passe est incorrect
-                $response = 2;
+                $response['code'] = 2;
             }
         }
 

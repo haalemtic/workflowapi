@@ -3,8 +3,7 @@
 function login()
 {
     header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json; charset= UTF-8");
-    header("Access-Control-Allow-Headers: Content-Type");
+    
     header("Access-Control-Allow-Methods: POST");
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //Reccupération des infos envoyées
@@ -24,7 +23,7 @@ function login()
 
 
             $response = $userInstance->login();
-            if ($response == 0) {
+            if ($response['code'] == 0) {
 
 
                 sendJSON(
@@ -33,15 +32,16 @@ function login()
                         "message" => "L'utilisateur n'existe pas."
                     )
                 );
-            } else if ($response == 1) {
+            } else if ($response['code'] == 1) {
                 sendJSON(
                     array(
                         "user_exists" => true,
-                        "message" => "Authentification réussie."
+                        "message" => "Authentification réussie.",
+                        "user"=> $response['user']
 
                     )
                     );
-            } else if ($response == 2) {
+            } else if ($response['code'] == 2) {
                 sendJSON( array(
                     "user_exists" => true,
                     "message" => "Mot de passe incorrect."
